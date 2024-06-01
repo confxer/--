@@ -127,7 +127,8 @@
 							                <li class="active"><span>${i}</span></li>
 							            </c:when>
 							            <c:otherwise>
-							                <li><a href="?category=${category}&page=${i}">${i}</a></li>
+							
+					                <li><a href="?category=${category}&page=${i}">${i}</a></li>
 							            </c:otherwise>
 							        </c:choose>
 							    </c:forEach>
