@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@include file="includes/header.jsp"%>
+<%@include file="../includes/header.jsp"%>
 <link
 	href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
 	rel="stylesheet">
@@ -285,4 +285,4 @@
 </div>
 </div>
 </section>
-<%@include file="includes/footer.jsp"%>
+<%@include file="../includes/footer.jsp"%>
