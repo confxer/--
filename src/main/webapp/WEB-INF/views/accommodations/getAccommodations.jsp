@@ -14,7 +14,7 @@
 				data-scrollax=" properties: { translateY: '70%' }">
 				<p class="breadcrumbs"
 					data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
-					<span class="mr-2"><a href="home">Home</a></span> <span>Hotel</span>
+					<span class="mr-2"><a href="home">Home</a></span> <span>Accommodations</span>
 				</p>
 				<h1 class="mb-3 bread"
 					data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">${category}</h1>
@@ -36,28 +36,28 @@
 									<label for="region">지역</label>
 									<select name="region" id="region" class="form-control">
 										<option value="">선택</option>
-										<option value="seoul" ${param.region=='서울'?'selected':'' }>서울</option>
-										<option value="gyeonggi" ${param.region=='경기'?'selected':'' }>경기</option>
-										<option value="incheon" ${param.region=='인천'?'selected':'' }>인천</option>
-										<option value="jeju" ${param.region=='제주'?'selected':'' }>제주</option>
+										<option value="Seoul">서울</option>
+			              <option value="Gyeonggi">경기</option>
+			              <option value="Incheon">인천</option>
+			              <option value="Jeju">제주</option>
 									</select>
 							</div>
 							<div class="form-group">
 								<label for="startDate">입실일</label>
-								<input type="text" name="startDate" id="startDate" value="${param.startDate }"
+								<input name="startDate" type="text" id="checkin_date"
 									class="form-control" placeholder="Date from" >
 							</div>
 							<div class="form-group">
 								<label for="endDate">퇴실일</label>
-								<input type="text" name="endDate" id="checkin_date" value="${param.endDate }"
+								<input name="endDate" type="text" id="checkin_date"
 									class="form-control" placeholder="Date to">
 							</div>
 							<div class="form-group">
 							<label for="sort">정렬</label>
 							<select name="sort" id="sort" class="form-control">
 								<option value="">선택</option>
-								<option value="rating" ${param.sort=='rating'?'selected':'' }>별점</option>
-								<option value="reviews" ${param.sort=='reviews'?'selected':'' }>리뷰수</option>
+								<option value="rating">별점</option>
+								<option value="reviews">리뷰수</option>
 							</select>
 							</div>
 							<div class="form-group">
@@ -95,7 +95,7 @@
                         <c:forEach begin="${accommodation.star_rating + 1}" end="5">
 						              <i class="icon-star-o"></i>
 						            </c:forEach>
-						            <span>${accommodation.star_rating} Rating</span>
+						            <span>(${accommodation.review_count})</span>
 											</p>
 										</div>
 										<div class="two">

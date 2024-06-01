@@ -33,5 +33,37 @@ public class Criteria {
         this.start = (this.pageNum - 1) * amount;
         return this.start;
     }
+    
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
 	
+    public Timestamp getStart_date() {
+        return start_date;
+    }
+
+    public void setStart_date(Timestamp start_date) {
+        this.start_date = start_date;
+    }
+    
+    public Timestamp getEnd_date() {
+        return end_date;
+    }
+
+    public void setEnd_date(Timestamp end_date) {
+        this.end_date = end_date;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
+    
 }

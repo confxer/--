@@ -23,7 +23,9 @@ public class AccommodationService {
 	}
 	
 	public List<AccommodationVO> getAccommodations(Criteria cri){
+		System.out.println("service"+cri);
 		List<AccommodationVO> accommodations = mapper.getListWithPaging(cri);
+		System.out.println("pageNum:"+accommodations);
 		return accommodations;
 	}
 }
