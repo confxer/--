@@ -119,7 +119,7 @@
 							<div class="block-27">
 								<ul>
 									<c:if test="${pageDTO.prev}">
-							        <li><a href="?category=${category}&page=${pageDTO.startPage - 1}">&lt;</a></li>
+							        <li><a href="?${queryParams}&page=${pageDTO.startPage - 1}">&lt;</a></li>
 							    </c:if>
 							    <c:forEach begin="${pageDTO.startPage}" end="${pageDTO.endPage}" var="i">
 							        <c:choose>
@@ -127,13 +127,12 @@
 							                <li class="active"><span>${i}</span></li>
 							            </c:when>
 							            <c:otherwise>
-							
-					                <li><a href="?category=${category}&page=${i}">${i}</a></li>
+					                <li><a href="?${queryParams}&page=${i}">${i}</a></li>
 							            </c:otherwise>
 							        </c:choose>
 							    </c:forEach>
 							    <c:if test="${pageDTO.next}">
-							        <li><a href="?category=${category}&page=${pageDTO.endPage + 1}">&gt;</a></li>
+							        <li><a href="?${queryParams}&page=${pageDTO.endPage + 1}">&gt;</a></li>
 							    </c:if>
 								</ul>
 							</div>
@@ -146,5 +145,22 @@
 	</div>
 </section>
 <!-- .section -->
+
+<script>
+<%-- JavaScript를 사용하여 queryParams 생성 --%>
+    var queryParams = "category=${category}";
+    if ("<%= request.getParameter("region") %>" !== "") {
+        queryParams += "&region=<%= request.getParameter("region") %>";
+    }
+    if ("<%= request.getParameter("startDate") %>" !== "") {
+        queryParams += "&startDate=<%= request.getParameter("startDate") %>";
+    }
+    if ("<%= request.getParameter("endDate") %>" !== "") {
+        queryParams += "&endDate=<%= request.getParameter("endDate") %>";
+    }
+    if ("<%= request.getParameter("sort") %>" !== "") {
+        queryParams += "&sort=<%= request.getParameter("sort") %>";
+    }
+</script>
 
 <%@include file="../includes/footer.jsp"%>
