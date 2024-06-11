@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.spring.mapper.UserMapper">
+	
+	<!-- &lt; = < -->
+	<select id="getTotalCount" resultType="int" parameterType="org.spring.domain.Criteria">
+    SELECT COUNT(accommodation_no) FROM accommodation
+    WHERE category = #{category}
+        <if test="region != null and region != ''">
+            AND region = #{region}
+        </if>
+        <if test="start_date != null">
+            AND start_date >= #{start_date}
+        </if>
+        <if test="end_date != null">
+            AND end_date &lt;= #{end_date}
+        </if>
+    </select>
+	
+	<select id="getListWithPaging" resultType="accommodationVO" parameterType="org.spring.domain.Criteria">
+    SELECT * FROM accommodation
+    WHERE category = #{category}
+        <if test="region != null and region != ''">
+            AND region = #{region}
+        </if>
+        <if test="start_date != null">
+            AND start_date >= #{start_date}
+        </if>
+        <if test="end_date != null">
+            AND end_date &lt;= #{end_date}
+        </if>
+    ORDER BY
+        <choose>
+            <when test="sort == 'rating'">star_rating DESC</when>
+            <when test="sort == 'reviews'">review_count DESC</when>
+            <otherwise>star_rating DESC</otherwise>
+        </choose>
+    LIMIT #{start}, #{amount}
+</select>
+	
+	
+	
+	
+</mapper>
