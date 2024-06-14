@@ -12,6 +12,6 @@ public class AccommodationVO {
 	private String address;	//주소
 	private String phone_number;	//전화번호
 	private String description;//내용
-	private int star_rating; 	//별점
+	private double star_rating; 	//별점
 	private int review_count;//리뷰 수
 }

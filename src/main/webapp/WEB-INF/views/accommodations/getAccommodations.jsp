@@ -36,28 +36,28 @@
 									<label for="region">지역</label>
 									<select name="region" id="region" class="form-control">
 										<option value="">선택</option>
-										<option value="Seoul">서울</option>
-			              <option value="Gyeonggi">경기</option>
-			              <option value="Incheon">인천</option>
-			              <option value="Jeju">제주</option>
+										<option value="Seoul" th:selected="${region == 'Seoul'}">서울</option>
+		                <option value="Gyeonggi" th:selected="${region == 'Gyeonggi'}">경기</option>
+		                <option value="Incheon" th:selected="${region == 'Incheon'}">인천</option>
+		                <option value="Jeju" th:selected="${region == 'Jeju'}">제주</option>
 									</select>
 							</div>
 							<div class="form-group">
 								<label for="startDate">입실일</label>
-								<input name="startDate" type="text" id="checkin_date"
+								<input name="startDate" type="text" id="checkin_date" value="${startDate}"
 									class="form-control" placeholder="Date from" >
 							</div>
 							<div class="form-group">
 								<label for="endDate">퇴실일</label>
-								<input name="endDate" type="text" id="checkin_date"
+								<input name="endDate" type="text" id="checkin_date" value="${endDate}"
 									class="form-control" placeholder="Date to">
 							</div>
 							<div class="form-group">
 							<label for="sort">정렬</label>
 							<select name="sort" id="sort" class="form-control">
 								<option value="">선택</option>
-								<option value="rating">별점</option>
-								<option value="reviews">리뷰수</option>
+								<option value="rating" th:selected="${sort == 'rating'}">별점</option>
+								<option value="reviews" th:selected="${sort == 'reviews'}">리뷰수</option>
 							</select>
 							</div>
 							<div class="form-group">
@@ -74,7 +74,7 @@
 					<c:forEach items="${accommodations }" var="accommodation">
 						<div class="col-md-4 ftco-animate">
 							<div class="destination">
-								<a href="accommodationsDetail.jsp"
+								<a href="/list/details?no=${accommodation.accommodation_no }"
 									class="img img-2 d-flex justify-content-center align-items-center"
 									style="background-image: url(${path}/resources/images/hotel-1.jpg);">
 									<div
@@ -86,7 +86,7 @@
 									<div class="d-flex">
 										<div class="one">
 											<h3>
-												<a href="accommodationsDetail.jsp">${accommodation.accommodation_name}</a>
+												<a href="/list/details?no=${accommodation.accommodation_no }">${accommodation.accommodation_name}</a>
 											</h3>
 											<p class="rate">
 												<c:forEach begin="1" end="${accommodation.star_rating}">
@@ -103,7 +103,7 @@
 											<small>/night</small></span>
 										</div>
 									</div>
-									<p>${accommodation.description}</p>
+<%-- 									<p>${accommodation.description}</p> --%>
 									<hr>
 									<p class="bottom-area d-flex">
 										<span><i class="icon-map-o"></i>${accommodation.region}</span>
@@ -119,7 +119,7 @@
 							<div class="block-27">
 								<ul>
 									<c:if test="${pageDTO.prev}">
-							        <li><a href="?${queryParams}&page=${pageDTO.startPage - 1}">&lt;</a></li>
+							        <li><a href="?region=${region}&startDate=${startDate}&endDate=${endDate}&sort=${sort}&page=${pageDTO.startPage - 1}">&lt;</a></li>
 							    </c:if>
 							    <c:forEach begin="${pageDTO.startPage}" end="${pageDTO.endPage}" var="i">
 							        <c:choose>
@@ -127,12 +127,12 @@
 							                <li class="active"><span>${i}</span></li>
 							            </c:when>
 							            <c:otherwise>
-					                <li><a href="?${queryParams}&page=${i}">${i}</a></li>
+					                <li><a href="?region=${region}&startDate=${startDate}&endDate=${endDate}&sort=${sort}&page=${i}">${i}</a></li>
 							            </c:otherwise>
 							        </c:choose>
 							    </c:forEach>
 							    <c:if test="${pageDTO.next}">
-							        <li><a href="?${queryParams}&page=${pageDTO.endPage + 1}">&gt;</a></li>
+							        <li><a href="?region=${region}&startDate=${startDate}&endDate=${endDate}&sort=${sort}&page=${pageDTO.endPage + 1}">&gt;</a></li>
 							    </c:if>
 								</ul>
 							</div>
@@ -146,21 +146,5 @@
 </section>
 <!-- .section -->
 
-<script>
-<%-- JavaScript를 사용하여 queryParams 생성 --%>
-    var queryParams = "category=${category}";
-    if ("<%= request.getParameter("region") %>" !== "") {
-        queryParams += "&region=<%= request.getParameter("region") %>";
-    }
-    if ("<%= request.getParameter("startDate") %>" !== "") {
-        queryParams += "&startDate=<%= request.getParameter("startDate") %>";
-    }
-    if ("<%= request.getParameter("endDate") %>" !== "") {
-        queryParams += "&endDate=<%= request.getParameter("endDate") %>";
-    }
-    if ("<%= request.getParameter("sort") %>" !== "") {
-        queryParams += "&sort=<%= request.getParameter("sort") %>";
-    }
-</script>
 
 <%@include file="../includes/footer.jsp"%>

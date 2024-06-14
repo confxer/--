@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.spring.domain.AccommodationVO;
 import org.spring.domain.Criteria;
+import org.spring.domain.RoomVO;
 import org.spring.domain.pageDTO;
 import org.spring.service.AccommodationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +72,7 @@ public class HotelController {
 		int totalCount = service.getAccommodationsCount(cri);
 		List<AccommodationVO> accommodations = service.getAccommodations(cri);
 		
-		 System.out.println("Total Accommodations Count: " + totalCount);
+		System.out.println("Total Accommodations Count: " + totalCount);
 		
 		pageDTO dto = new pageDTO(cri, totalCount);
 		
@@ -87,12 +88,42 @@ public class HotelController {
 	}
 	
 	@GetMapping("/motels")
-	public ModelAndView getMotels(Criteria cri,@RequestParam(value="page",defaultValue="1")int page) {
+	public ModelAndView getMotels(Criteria cri,
+			@RequestParam(value="page",defaultValue="1")int page,
+			@RequestParam(value="region", required=false) String region,
+            @RequestParam(value="startDate", required=false) String startDate,
+            @RequestParam(value="endDate", required=false) String endDate,
+            @RequestParam(value="sort", required=false) String sort){
 		ModelAndView mv = new ModelAndView("accommodations/getAccommodations");
 		
 		cri.setCategory("motel");
 		cri.setPageNum(page);
 		
+		if (region != null && !region.isEmpty()) {
+	        cri.setRegion(region); // 지역 설정
+	    }
+		if (startDate != null && !startDate.isEmpty()) {
+	        try {
+	            LocalDateTime startDateTime = LocalDateTime.parse(startDate, DateTimeFormatter.ISO_DATE_TIME);
+	            cri.setStart_date(Timestamp.valueOf(startDateTime)); // 입실일 설정
+	        } catch (DateTimeParseException e) {
+	            // 올바르지 않은 날짜 형식 처리
+	            System.out.println("Invalid start date format");
+	        }
+	    }
+	    if (endDate != null && !endDate.isEmpty()) {
+	        try {
+	            LocalDateTime endDateTime = LocalDateTime.parse(endDate, DateTimeFormatter.ISO_DATE_TIME);
+	            cri.setEnd_date(Timestamp.valueOf(endDateTime)); // 퇴실일 설정
+	        } catch (DateTimeParseException e) {
+	            // 올바르지 않은 날짜 형식 처리
+	            System.out.println("Invalid end date format");
+	        }
+	    }
+	    if (sort != null && !sort.isEmpty()) {
+	        cri.setSort(sort); // 정렬 설정
+	    }
+		
 		int totalCount = service.getAccommodationsCount(cri);
 		List<AccommodationVO> accommodations = service.getAccommodations(cri);
 		
@@ -101,16 +132,50 @@ public class HotelController {
 		mv.addObject("accommodations",accommodations);
 		mv.addObject("pageDTO", dto);
 		mv.addObject("category", cri.getCategory());
+		mv.addObject("region", region); 
+	    mv.addObject("startDate", startDate); 
+	    mv.addObject("endDate", endDate); 
+	    mv.addObject("sort", sort); 
 		
 		return mv;
 	}
 	
 	@GetMapping("/pensions")
-	public ModelAndView getPensions(Criteria cri,@RequestParam(value="page",defaultValue="1")int page) {
+	public ModelAndView getPensions(Criteria cri,
+			@RequestParam(value="page",defaultValue="1")int page,
+			@RequestParam(value="region", required=false) String region,
+            @RequestParam(value="startDate", required=false) String startDate,
+            @RequestParam(value="endDate", required=false) String endDate,
+            @RequestParam(value="sort", required=false) String sort){
 		ModelAndView mv = new ModelAndView("accommodations/getAccommodations");
 		
 		cri.setCategory("pension");
 		cri.setPageNum(page);
+		
+		if (region != null && !region.isEmpty()) {
+	        cri.setRegion(region); // 지역 설정
+	    }
+		if (startDate != null && !startDate.isEmpty()) {
+	        try {
+	            LocalDateTime startDateTime = LocalDateTime.parse(startDate, DateTimeFormatter.ISO_DATE_TIME);
+	            cri.setStart_date(Timestamp.valueOf(startDateTime)); // 입실일 설정
+	        } catch (DateTimeParseException e) {
+	            // 올바르지 않은 날짜 형식 처리
+	            System.out.println("Invalid start date format");
+	        }
+	    }
+	    if (endDate != null && !endDate.isEmpty()) {
+	        try {
+	            LocalDateTime endDateTime = LocalDateTime.parse(endDate, DateTimeFormatter.ISO_DATE_TIME);
+	            cri.setEnd_date(Timestamp.valueOf(endDateTime)); // 퇴실일 설정
+	        } catch (DateTimeParseException e) {
+	            // 올바르지 않은 날짜 형식 처리
+	            System.out.println("Invalid end date format");
+	        }
+	    }
+	    if (sort != null && !sort.isEmpty()) {
+	        cri.setSort(sort); // 정렬 설정
+	    }
 		
 		int totalCount = service.getAccommodationsCount(cri);
 		List<AccommodationVO> accommodations = service.getAccommodations(cri);
@@ -120,7 +185,24 @@ public class HotelController {
 		mv.addObject("accommodations",accommodations);
 		mv.addObject("pageDTO", dto);
 		mv.addObject("category", cri.getCategory());
+		mv.addObject("region", region); 
+	    mv.addObject("startDate", startDate); 
+	    mv.addObject("endDate", endDate); 
+	    mv.addObject("sort", sort); 
 		
+		return mv;
+	}
+	
+	@GetMapping("/details")
+	public ModelAndView getDatails(@RequestParam("no") int accommodation_no) {
+		ModelAndView mv = new ModelAndView("accommodations/hotel-details");
+		
+		//accommodation_no을 이용해 room 상세 정보 조회
+		List<RoomVO> roomDetails = service.getRoomDetails(accommodation_no);
+		List<AccommodationVO> accommodationDetails = service.getAccommodationDetails(accommodation_no);
+		
+		mv.addObject("a", accommodationDetails);
+		mv.addObject("r", roomDetails);
 		return mv;
 	}
 

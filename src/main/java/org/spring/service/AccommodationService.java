@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.spring.domain.AccommodationVO;
 import org.spring.domain.Criteria;
+import org.spring.domain.RoomVO;
 import org.spring.mapper.AccommodationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,5 +28,15 @@ public class AccommodationService {
 		List<AccommodationVO> accommodations = mapper.getListWithPaging(cri);
 		System.out.println("pageNum:"+accommodations);
 		return accommodations;
+	}
+
+	public List<RoomVO> getRoomDetails(int no) {
+		System.out.println("Service_accommodation_no"+no);
+		List<RoomVO> room = mapper.getRoomDetails(no);
+		return room;
+	}
+
+	public List<AccommodationVO> getAccommodationDetails(int no) {
+		return mapper.getAccommodationDetails(no);
 	}
 }
