@@ -40,9 +40,16 @@
             <otherwise>star_rating DESC</otherwise>
         </choose>
     LIMIT #{start}, #{amount}
-</select>
+	</select>
 	
+	<select id="getRoomDetails" resultType="roomVO" parameterType="int">
+		SELECT * FROM room
+		WHERE accommodation_no = #{no}
+	</select>
 	
-	
+	<select id="getAccommodationDetails" resultType="accommodationVO" parameterType="int">
+		SELECT * FROM accommodation
+		WHERE accommodation_no = #{no}
+	</select>
 	
 </mapper>
