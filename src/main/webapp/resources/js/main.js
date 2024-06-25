@@ -338,7 +338,7 @@
   });
 
 
-  $('#checkin_date, #checkout_date').datepicker({
+  $('#checkin_date, #checkout_date, #birth').datepicker({
 	  'format': 'm/d/yyyy',
 	  'autoclose': true
 	});

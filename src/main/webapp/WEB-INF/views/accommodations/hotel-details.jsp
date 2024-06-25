@@ -92,8 +92,9 @@
 									<div class="col-lg-8 col-sm-7">
 										<div class="right-content">
 											<h4>${r.room_type }</h4>
+											<input type="hidden" id="room_no" value="${r.room_no}">
 											<div class="main-button">
-												<a href="/reservation">예약</a>
+												<a href="/reservation?name=${a.accommodation_name }&r_no=${r.room_no}">예약</a>
 											</div>
 												<p>${r.description }</p>
 											<ul class="info">
